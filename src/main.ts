@@ -7,24 +7,19 @@ enum PastaType {
   macaroni = "macaroni",
 }
 
-interface PizzaProps {
-  hasPepperoni: boolean;
+interface Food {
   hasSauce: boolean;
   hasCheese: boolean;
-  bakeTime: number;
+}
+
+interface PizzaProps extends Food {
+  hasPepperoni: boolean;
   bake(): void;
 }
 
-interface PastaProps {
+interface PastaProps extends Food {
   pastaType: PastaType;
-  hasSauce: boolean;
-  hasCheese: boolean;
-  cookTime: number;
   cook(): void;
-}
-
-interface KitchenIntarface {
-  makeDish(dish: PizzaProps | PastaProps): PizzaProps | PastaProps;
 }
 
 class Pizza implements PizzaProps {
@@ -55,8 +50,8 @@ class Pasta implements PastaProps {
     setTimeout(console.log, this.cookTime, 'Enjoy your pasta!');
   }
 }
-class Kitchen implements KitchenIntarface {
-  makeDish(dish: PizzaProps | PastaProps): PizzaProps | PastaProps {
+class Kitchen {
+  makeDish(dish: Food): Food {
     // эту часть надо переделать
     if (dish instanceof Pizza) {
       dish.bake();
@@ -68,8 +63,8 @@ class Kitchen implements KitchenIntarface {
     throw new Error('Unknown dish');
   }
 }
-const kitchen: KitchenIntarface = new Kitchen();
-const pizza: PizzaProps = new Pizza(true, true, false);
-const pasta: PastaProps = new Pasta(PastaType.spagetti, true, true);
+const kitchen = new Kitchen();
+const pizza: Food = new Pizza(true, true, false);
+const pasta: Food = new Pasta(PastaType.spagetti, true, true);
 kitchen.makeDish(pizza);
 kitchen.makeDish(pasta);
