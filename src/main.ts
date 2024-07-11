@@ -50,8 +50,11 @@ class Pasta implements PastaProps {
     setTimeout(console.log, this.cookTime, 'Enjoy your pasta!');
   }
 }
+
+type food = Pizza | Pasta;
+
 class Kitchen {
-  makeDish(dish: Food): Food | never {
+  makeDish(dish: food): food | never {
     // эту часть надо переделать
     if (dish instanceof Pizza) {
       dish.bake();
@@ -64,7 +67,7 @@ class Kitchen {
   }
 }
 const kitchen = new Kitchen();
-const pizza: Food = new Pizza(true, true, false);
-const pasta: Food = new Pasta(PastaType.spagetti, true, true);
+const pizza: food = new Pizza(true, true, false);
+const pasta: food = new Pasta(PastaType.spagetti, true, true);
 kitchen.makeDish(pizza);
 kitchen.makeDish(pasta);
