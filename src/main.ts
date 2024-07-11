@@ -7,7 +7,27 @@ enum PastaType {
   macaroni = "macaroni",
 }
 
-class Pizza {
+interface IPizza {
+  hasPepperoni: boolean;
+  hasSauce: boolean;
+  hasCheese: boolean;
+  bakeTime: number;
+  bake(): void;
+}
+
+interface IPasta {
+  pastaType: PastaType;
+  hasSauce: boolean;
+  hasCheese: boolean;
+  cookTime: number;
+  cook(): void;
+}
+
+interface IKitchen {
+  makeDish(dish: Pizza | Pasta): Pizza | Pasta;
+}
+
+class Pizza implements IPizza {
   hasPepperoni: boolean;
   hasSauce: boolean;
   hasCheese: boolean;
@@ -17,26 +37,26 @@ class Pizza {
     this.hasSauce = hasSauce;
     this.hasCheese = hasCheese;
   }
-  bake() {
+  bake(): void {
     setTimeout(console.log, this.bakeTime, 'Enjoy your pizza!');
   }
 }
-class Pasta {
-  pastaType;
-  hasSauce;
-  hasCheese;
+class Pasta implements IPasta {
+  pastaType: PastaType;
+  hasSauce: boolean;
+  hasCheese: boolean;
   cookTime = 30;
   constructor(pastaType: PastaType, hasSauce: boolean, hasCheese: boolean) {
     this.pastaType = pastaType;
     this.hasCheese = hasCheese;
     this.hasSauce = hasSauce;
   }
-  cook() {
+  cook(): void {
     setTimeout(console.log, this.cookTime, 'Enjoy your pasta!');
   }
 }
-class Kitchen {
-  makeDish(dish: Pizza | Pasta) {
+class Kitchen implements IKitchen {
+  makeDish(dish: Pizza | Pasta): Pizza | Pasta {
     // эту часть надо переделать
     if (dish instanceof Pizza) {
       dish.bake();
