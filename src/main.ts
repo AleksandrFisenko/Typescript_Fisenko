@@ -51,7 +51,7 @@ class Pasta implements PastaProps {
   }
 }
 class Kitchen {
-  makeDish(dish: Food): Food {
+  makeDish(dish: Food): Food | never {
     // эту часть надо переделать
     if (dish instanceof Pizza) {
       dish.bake();
