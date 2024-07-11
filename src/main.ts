@@ -8,7 +8,7 @@ enum Roles {
 }
 
 interface User {
-  id: number | string;
+  id: number;
   login: string;
   role: Roles;
 }
@@ -19,11 +19,11 @@ const user: User = {
   role: Roles.user,
 }
 
-const checkPermissionsDecorator = (roles: Array<string>):(user: User) => boolean => {
-  return (user) => {
+const checkPermissionsDecorator = (roles: Array<Roles>): ((user: User) => Boolean) => {
+  return (user: User): Boolean => {
     return roles.includes(user.role);
   }
 }
-const checkPermission = checkPermissionsDecorator(['admin']);
+const checkPermission = checkPermissionsDecorator([Roles.admin]);
 const hasPermissions = checkPermission(user);
 console.log(hasPermissions);
