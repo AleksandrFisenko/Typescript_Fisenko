@@ -19,8 +19,12 @@ const user: User = {
   role: Roles.user,
 }
 
-const checkPermissionsDecorator = (roles: Array<Roles>): ((user: User) => Boolean) => {
-  return (user: User): Boolean => {
+type CheckPermissionsFunction = {
+  (user:User):boolean
+}
+
+const checkPermissionsDecorator = (roles: Roles[]): CheckPermissionsFunction => {
+  return (user: User): boolean => {
     return roles.includes(user.role);
   }
 }
