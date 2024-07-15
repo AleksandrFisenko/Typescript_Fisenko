@@ -6,7 +6,12 @@
 
 type Tuple<T> = [string, T]
 
-const fu = <T,>(a: T): Tuple<T> => ['hi', a]
+// interface Tuple<T> {
+//   0: string;
+//   1: T;
+// }
+
+const fu = <T>(a: T): Tuple<T> => ['hi', a]
 
 console.log(fu(1))
 console.log(fu('1'))

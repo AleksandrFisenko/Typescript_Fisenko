@@ -1,13 +1,11 @@
-// есть функция - которая возвращает кортеж
-// в кортеже первый элемент всегда строка, второй - аргумент функции (может быть абсолютно любого типа)
 
-// const fu = (a) => ['hi', a]
-// нужно ее типизировать
+// spread
+interface x {
+  [index: number]: number | boolean,
+}
 
-type Tuple<T> = [string, T]
 
-const fu = <T,>(a: T): Tuple<T> => ['hi', a]
 
-console.log(fu(1))
-console.log(fu('1'))
-console.log(fu(true))
+const Arr: x = [false, 5, 5, 5, true]
+const Arr2: x = [false, 5, true]
+const Arr3: x = [true, 1, 2, 3, 4, 5, true]
