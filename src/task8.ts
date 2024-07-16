@@ -2,14 +2,14 @@ enum Roles {
   admin = 'admin',
   moderator = 'moderator',
   user = 'user'
-}
+};
 
 interface User {
   id: number,
   name: string,
   role: Roles
   age?: number
-}
+};
 
 const user: User = {
   id: 1,
@@ -17,9 +17,9 @@ const user: User = {
   role: Roles.moderator,
 };
 
-console.log(user)
+console.log(user);
 user.age = 20;
-console.log(user)
+console.log(user);
 
 const hasPermissions = (user: User): boolean | never => {
   if (user.role === Roles.admin) return true;
@@ -31,11 +31,11 @@ const hasPermissions = (user: User): boolean | never => {
 interface Counter {
   increment(): number | string;
   reset(): void;
-}
+};
 
 interface CreateCounter {
   (initial?: number, error?: string): Counter;
-}
+};
 
 const createCounter: CreateCounter = (initial: number = 0, error: string = 'Unauthorized') => {
   let count: number = initial;
@@ -51,8 +51,8 @@ const createCounter: CreateCounter = (initial: number = 0, error: string = 'Unau
     reset() {
       count = initial;
     }
-  }
-}
+  };
+};
 
 
-console.log(createCounter().increment())
+console.log(createCounter().increment());
