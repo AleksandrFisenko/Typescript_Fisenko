@@ -7,15 +7,10 @@ console.log(prop("a", {a:232, b: "gggg"}))
 
 
 // Опишите типы для следующей функции:
+function createMap<T>(list: T[]) {
 
-interface Fun<T> {
-  (value: T): T;
-}
-
-export function createMap<T>(list: T[]) {
-
-  return function(cb: Fun<T>) {
-    const result:T[] = [];
+  return function<U>(cb: (num: T) => U): U[] {
+    const result:U[] = [];
     for (let el of list) {
       result.push(cb(el))
     }
