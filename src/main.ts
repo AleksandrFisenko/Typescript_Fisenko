@@ -1,58 +1,29 @@
-enum Roles {
-  admin = 'admin',
-  moderator = 'moderator',
-  user = 'user'
+// xd 1
+function prop<T, O extends keyof T>(key: O, obj: T): T[O] {
+  return obj[key];
 }
 
-interface User {
-  id: number,
-  name: string,
-  role: Roles
-  age?: number
+console.log(prop("a", {a:232, b: "gggg"}))
+
+
+// Опишите типы для следующей функции:
+
+interface Fun<T> {
+  (value: T): T;
 }
 
-const user: User = {
-  id: 1,
-  name: 'Test',
-  role: Roles.moderator,
-};
+export function createMap<T>(list: T[]) {
 
-console.log(user)
-user.age = 20;
-console.log(user)
-
-const hasPermissions = (user: User): boolean | never => {
-  if (user.role === Roles.admin) return true;
-  else if (user.role === Roles.moderator) return true;
-  else if (user.role === Roles.user) return false;
-  throw new Error('Unknown user role');
-};
-
-interface Counter {
-  increment(): number | string;
-  reset(): void;
-}
-
-interface CreateCounter {
-  (initial?: number, error?: string): Counter;
-}
-
-const createCounter: CreateCounter = (initial: number = 0, error: string = 'Unauthorized') => {
-  let count: number = initial;
-
-  return {
-    increment() {
-      if (hasPermissions(user)) {
-        count += 1;
-        return count;
-      }
-      return error;
-    },
-    reset() {
-      count = initial;
+  return function(cb: Fun<T>) {
+    const result:T[] = [];
+    for (let el of list) {
+      result.push(cb(el))
     }
+    return result;
   }
 }
 
+const mapNums = createMap([1, 2, 3])
+const result = mapNums((num) => num + 2)
 
-console.log(createCounter().increment())
+console.log(result)
